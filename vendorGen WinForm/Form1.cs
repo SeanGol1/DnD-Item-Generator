@@ -51,67 +51,33 @@ namespace vendorGen_WinForm
             _Excel.Range xlRange = xlWorksheet.UsedRange;
 
             int rowCount = xlRange.Rows.Count;
-            int colCount = xlRange.Columns.Count;
-            int ic = 0;
+            int colCount = xlRange.Columns.Count;            
 
             int total = 0;
             if (totalRolled.Text == "")
                 total = 1;
             else
                 total = Convert.ToInt32(totalRolled.Text);
-
-            string[] colItems = new string[colCount];
-            //string[]  = new string[colCount];
+            
             List<string[]> rowItems = new List<string[]>();
 
-            if (xlRange.Cells[total + 1, 6].Value2 == null)            
-                tbxAttune.Text = "No";            
-            else
-                tbxAttune.Text = "Yes";
+            if (xlRange.Cells[total + 1, 6].Value2 != null)
+            {
+                tbxAttune.Text = xlRange.Cells[total + 1, 6].Value2.ToString();
 
-            //string attune = xlRange.Cells[total + 1, 6].Value2.ToString();
+                if (xlRange.Cells[total + 1, 6].Value2.ToString() == "y")
+                    tbxAttune.Text = "Yes";               
+
+            }                       
+            else
+                tbxAttune.Text = "No"; 
+
             string itemName = xlRange.Cells[total + 1, 4].Value2.ToString();
             string desc = xlRange.Cells[total + 1, 5].Value2.ToString();
 
             tbxName.Text = itemName;            
 
             tbxDesc.Text = desc;
-
-
-
-
-
-            /*
-            for (int i=1; i <= rowCount; i++)
-            {                
-                for (int j=1; j <=colCount; j++)
-                {
-
-                    if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
-                    {
-                        //colItems[ic] = (xlRange.Cells[i, j].Value2.ToString());
-                        if (i == 1)
-                        {
-                            label2.Text = xlRange.Cells[i, 2].Value2.ToString();
-                            label4.Text = xlRange.Cells[i, 3].Value2.ToString();
-                            label5.Text = xlRange.Cells[i, 4].Value2.ToString();
-                            
-                        }                        
-                        
-                        if (i == total)
-                        {
-                            tbxName.Text = xlRange.Cells[i, 2].Value2.ToString();
-                            tbxAttune.Text = xlRange.Cells[i, 3].Value2.ToString();
-                            tbxDesc.Text = xlRange.Cells[i, 4].Value2.ToString();
-                        }
-
-                        ic++;
-                    }  
-                }
-                //rowItems.Add(colItems);
-                ic = 0;
-            }
-            */
 
 
             //Cleanup
@@ -124,8 +90,6 @@ namespace vendorGen_WinForm
 
             xlApp.Quit();
             Marshal.ReleaseComObject(xlApp);
-
-
         }
 
         private void BtnFullList_Click(object sender, EventArgs e)
@@ -137,15 +101,17 @@ namespace vendorGen_WinForm
 
             int rowCount = xlRange.Rows.Count;
             int colCount = xlRange.Columns.Count;
-            int ic = 0;
 
-            int total = Convert.ToInt32(totalRolled.Text) + 1;
+            listView1.View = View.Details;
+            listView1.Columns.Add("Number");
+            listView1.Columns.Add("Name");
+            listView1.Columns.Add("Description");
+            listView1.Columns.Add("Attunement");
+            
 
-            string[] colItems = new string[colCount];
-            //string[]  = new string[colCount];
-            List<string[]> rowItems = new List<string[]>();
 
-            string itemline = "";
+
+
             for (int i = 1; i <= rowCount; i++)
             {
                 for (int j = 1; j <= colCount; j++)
@@ -153,29 +119,13 @@ namespace vendorGen_WinForm
 
                     if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
                     {
-                        // Fill box will full line      
-                        /*
-                        if (i == 1)
-                        {
-                            label2.Text = xlRange.Cells[i, 2].Value2.ToString();
-                            label4.Text = xlRange.Cells[i, 3].Value2.ToString();
-                            label5.Text = xlRange.Cells[i, 4].Value2.ToString();
-
-                        }
-
-                        if (i == total)
-                        {
-                            textBox1.Text = xlRange.Cells[i, 2].Value2.ToString();
-                            textBox2.Text = xlRange.Cells[i, 3].Value2.ToString();
-                            textBox3.Text = xlRange.Cells[i, 4].Value2.ToString();
-                        }*/
-
-                        ic++;
+                        listView1.Items.Add(new ListViewItem(new string[] { xlRange.Cells[i, 0].Value2.ToString(), xlRange.Cells[i, 4].Value2.ToString(), xlRange.Cells[i, 5].Value2.ToString(), xlRange.Cells[i, 6].Value2.ToString() }));
                     }
+                    
                 }
-                //rowItems.Add(colItems);
-                ic = 0;
+                
             }
+
 
 
             //Cleanup
