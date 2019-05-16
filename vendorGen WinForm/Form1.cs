@@ -59,14 +59,18 @@ namespace vendorGen_WinForm
             else
                 total = Convert.ToInt32(totalRolled.Text);
             
-            List<string[]> rowItems = new List<string[]>();
 
+            string attune = "";
             if (xlRange.Cells[total + 1, 6].Value2 != null)
             {
-                tbxAttune.Text = xlRange.Cells[total + 1, 6].Value2.ToString();
+                attune = xlRange.Cells[total + 1, 6].Value2.ToString();
 
-                if (xlRange.Cells[total + 1, 6].Value2.ToString() == "y")
-                    tbxAttune.Text = "Yes";               
+                if (attune == "y")
+                    attune = "Yes";
+                else if (attune == "N")
+                    attune = "No";
+
+                tbxAttune.Text = attune;
 
             }                       
             else
@@ -103,26 +107,34 @@ namespace vendorGen_WinForm
             int colCount = xlRange.Columns.Count;
 
             listView1.View = View.Details;
+            /*
             listView1.Columns.Add("Number");
             listView1.Columns.Add("Name");
             listView1.Columns.Add("Description");
             listView1.Columns.Add("Attunement");
-            
+            */
 
+            string tempNo= "";
+            string tempName = "";
+            string tempDesc = "";
+            string tempAttune = "";
 
-
-
-            for (int i = 1; i <= rowCount; i++)
+            for (int i = 2; i <= rowCount; i++)
             {
-                for (int j = 1; j <= colCount; j++)
-                {
+                //for (int j = 1; j <= colCount; j++)
+                //{
 
-                    if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                    if (xlRange.Cells[i, 1] != null && xlRange.Cells[i, 1].Value2 != null)
                     {
-                        listView1.Items.Add(new ListViewItem(new string[] { xlRange.Cells[i, 0].Value2.ToString(), xlRange.Cells[i, 4].Value2.ToString(), xlRange.Cells[i, 5].Value2.ToString(), xlRange.Cells[i, 6].Value2.ToString() }));
+                        tempNo = xlRange.Cells[i, 1].Value2.ToString();
+                        tempName = xlRange.Cells[i, 4].Value2.ToString();
+                        tempDesc = xlRange.Cells[i, 5].Value2.ToString();
+                        tempAttune = xlRange.Cells[i, 6].Value2.ToString();
+
+                        listView1.Items.Add(new ListViewItem(new string[] {tempNo, tempName, tempDesc, tempAttune }));
                     }
                     
-                }
+                //}
                 
             }
 

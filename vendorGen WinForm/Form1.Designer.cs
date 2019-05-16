@@ -41,6 +41,10 @@
             this.tbxDesc = new System.Windows.Forms.TextBox();
             this.btnFullList = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.Number = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.itemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Attunement = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // currentgp
@@ -151,12 +155,39 @@
             // 
             // listView1
             // 
+            this.listView1.AllowColumnReorder = true;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Number,
+            this.itemName,
+            this.Description,
+            this.Attunement});
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(37, 408);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(515, 534);
             this.listView1.TabIndex = 17;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.UseWaitCursor = true;
+            // 
+            // Number
+            // 
+            this.Number.Text = "Number";
+            this.Number.Width = 50;
+            // 
+            // itemName
+            // 
+            this.itemName.Text = "Name";
+            this.itemName.Width = 100;
+            // 
+            // Description
+            // 
+            this.Description.Text = "Description";
+            this.Description.Width = 250;
+            // 
+            // Attunement
+            // 
+            this.Attunement.Text = "Attunement";
+            this.Attunement.Width = 100;
             // 
             // Form1
             // 
@@ -200,6 +231,10 @@
         private System.Windows.Forms.TextBox tbxDesc;
         private System.Windows.Forms.Button btnFullList;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader itemName;
+        private System.Windows.Forms.ColumnHeader Description;
+        private System.Windows.Forms.ColumnHeader Attunement;
+        private System.Windows.Forms.ColumnHeader Number;
     }
 }
 
